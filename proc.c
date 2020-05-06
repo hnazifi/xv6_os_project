@@ -532,3 +532,22 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+
+void
+getchildren(int pid)
+{
+ struct proc *p;
+ int counter =0;
+ acquire(&ptable.lock);
+ for(p=ptable.proc; p<&ptable.proc[NPROC];p++){
+   if(p->parent->pid == pid){
+     if(counter !=0){
+       cprintf("0");}
+     cprintf("%d",p->pid);
+   }
+   counter++;
+ }
+ cprintf("\n");
+ release(&ptable.lock);
+}

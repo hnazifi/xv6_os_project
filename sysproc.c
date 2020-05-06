@@ -89,3 +89,12 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+int
+sys_getchildren(void)
+{
+int pid;
+pid = myproc()->pid;
+getchildren(pid);
+return 0;
+}
