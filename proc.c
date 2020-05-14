@@ -199,6 +199,8 @@ fork(void)
   np->sz = curproc->sz;
   np->parent = curproc;
   *np->tf = *curproc->tf;
+  np->tick =0;
+
 
   // Clear %eax so that fork returns 0 in the child.
   np->tf->eax = 0;
@@ -549,5 +551,24 @@ getchildren(int pid)
    counter++;
  }
  cprintf("\n");
+ release(&ptable.lock);
+}
+
+// tickerCount ==> count the number of the tick of the process
+
+int tickerCount(){
+ struct proc *cur = myproc();
+ int numberOfTicks;
+ acquire(&ptable.lock);
+ numberOfTicks = cur->tick;
+ release(&ptable.lock);
+ return numberOfTicks;
+}
+
+// clearTick ==> clear the tick of the process
+void clearTick(){
+ struct proc *cur = myproc();
+ acquire(&ptable.lock();
+ cur->tick =0;
  release(&ptable.lock);
 }
