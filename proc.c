@@ -568,7 +568,7 @@ int tickerCount(){
 // clearTick ==> clear the tick of the process
 void clearTick(){
  struct proc *cur = myproc();
- acquire(&ptable.lock();
+ acquire(&ptable.lock);
  cur->tick =0;
  release(&ptable.lock);
 }
