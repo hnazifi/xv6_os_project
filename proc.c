@@ -201,6 +201,8 @@ fork(void)
   *np->tf = *curproc->tf;
   np->tick =0;
 
+  np->priority = 3;
+  np->changeable =3;
 
   // Clear %eax so that fork returns 0 in the child.
   np->tf->eax = 0;
@@ -297,6 +299,11 @@ wait(void)
         p->name[0] = 0;
         p->killed = 0;
         p->state = UNUSED;
+
+        p->tick =0;
+        p->priority =0;
+        p->changeable =0;
+
         release(&ptable.lock);
         return pid;
       }
